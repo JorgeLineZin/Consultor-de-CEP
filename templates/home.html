@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+        <title>{% block title %}Consulta de CEP{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">
+        {% block content %}
+        <h1>Consultar CEP</h1>
+        <form method="POST" action="/">
+            <label for="cep">Digite o CEP:</label>
+            <input type="text" id="cep" name="cep" placeholder="Ex: 01001000" pattern="\d{5}-?\d{3}" maxlength="9" required>
+            <button type="submit">Consultar</button>
+        </form>
+
+        {% if erro %}
+            <p style="color: red;">{{ erro }}</p>
+        {% endif %}
+
+        {% if dados_endereco %}
+            <h2>Resultado da consulta:</h2>
+            <ul>
+                <li><strong>CEP:</strong> {{ dados_endereco.cep }}</li>
+                <li><strong>Logradouro:</strong> {{ dados_endereco.logradouro }}</li>
+                <li><strong>Complemento:</strong> {{ dados_endereco.complemento }}</li>
+                <li><strong>Bairro:</strong> {{ dados_endereco.bairro }}</li>
+                <li><strong>Cidade:</strong> {{ dados_endereco.localidade }}</li>
+                <li><strong>UF:</strong> {{ dados_endereco.uf }}</li>
+                <li><strong>IBGE:</strong> {{ dados_endereco.ibge }}</li>
+                <li><strong>DDD:</strong> {{ dados_endereco.ddd }}</li>
+            </ul>
+        {% endif %}
+        {% endblock %}
+    </div>
+    <div id="footer">
+        {% block footer %}
+            <a href="https://github.com/JorgeLineZin">Lipe💚</a>.
+        {% endblock %}
+    </div>
+</body>
+</html>
